@@ -1,5 +1,3 @@
-
-
 <?php
 include 'form.html';
 include_once 'User.php';
