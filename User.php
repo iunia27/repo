@@ -1,6 +1,6 @@
 <?php
 
-include_once 'config.php';
+include_once 'DB_class.php';
 
 class User {
 
@@ -10,11 +10,11 @@ class User {
     }
 
 // Login process
-    public function login($email, $password) {
+ public function login($email, $password) {
         $db = new DB_Class();
         $row = $db->query_user_info($email);
         if ($row != NULL) {
-            if (md5($password) === $row['password']) { //if the passwords match
+            if (sha1($password) === $row['password']) { //if the passwords match
                 header('Location: helloworld.php');
                 session_start(); //create a new session
                 $_SESSION['login'] = TRUE; //set the login variable to true
