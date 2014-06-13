@@ -2,11 +2,11 @@
 session_start();
 include_once 'User.php';
 
-$user = new User(); //create a new user
-if ($user->get_session()) { //if there is an active session
-    echo 'Hello, ' . $user->get_name() . "!";
+$user = new User();    //create a new user
+if ($user->getSession()) {    //if there is an active session
+    echo 'Hello, ' . $_SESSION['name'] . "!";
 } else {
-    header('Location: checklogin.php'); //redirect the user
+    header('Location: checklogin.php');    //redirect the user
 }
 ?>
 

@@ -1,6 +1,6 @@
 <?php
+include_once 'Login.php';
 
-include_once 'User.php';
-$user = new User(); //create a new user
-$user->logout();  //log out the user
+$login = new Login();    //create a new login instance
+$login->logout();    //log out the user
 header('Location: checklogin.php');

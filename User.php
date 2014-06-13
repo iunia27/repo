@@ -1,48 +1,31 @@
 <?php
 
-include_once 'DB_class.php';
+require_once 'Db.php';
 
 class User {
 
-// Database connect 
+    public $db = null;
+
     public function __construct() {
-        $db = new DB_Class();
+        $this->db = Db::getInstance();
     }
 
 // Login process
- public function login($email, $password) {
-        $db = new DB_Class();
-        $row = $db->query_user_info($email);
-        if ($row != NULL) {
-            if (sha1($password) === $row['password']) { //if the passwords match
-                header('Location: helloworld.php');
-                session_start(); //create a new session
-                $_SESSION['login'] = TRUE; //set the login variable to true
-                $_SESSION['name'] = $row['firstname']; //set the user's first name in a session variable
-                return TRUE;
-            } else {
-                return FALSE;
-            }
-        }
+    public function getDbPassword($email, $password) {
+        $statement = "Select * from users where email = :email";
+        $row = $this->db->query($statement, array(":email" => $email));
+        return $row['password']; 
     }
 
 // Getting name
-    public function get_name() {
-        return $_SESSION['name'];
+    public function getName($email, $password) {
+        $statement = "Select * from users where email = :email";
+        $row = $this->db->query($statement, array(":email" => $email));
+        return $row['firstname']; 
     }
 
 // Getting session 
-    public function get_session() {
+    public function getSession() {
         return $_SESSION['login'];
     }
-
-// Logout 
-    public function logout() {
-        $_SESSION['login'] = FALSE; //set the login variable to false
-        session_destroy(); //destroy the session
-        setcookie('PHPSESSID', '', time() - 300, '/', '', 0); //destroy the session cookie
-    }
-
 }
-
-?>

@@ -1,16 +1,17 @@
 <?php
 
-include 'form.html';
-include_once 'User.php';
+require_once 'Login.php';
+require_once 'form.html';
 
-$user = new User(); //create a new user
-if (empty($_POST['email']) or empty($_POST['password'])) { //if log in data is incomplete
-	$ok = false;
+$login = false;
+
+if ((!empty($_POST['email'])) && (!empty($_POST['password']))) {    
+    //if the user filled in the e-mail and password fields
+    new Login($_POST['email'], $_POST['password']); //create a new login
+    
+if ($_SESSION['login'] ) {    //if the login process was successful
+    header('Location: helloworld.php');    //redirect the user to the secret page
 } else {
-	$ok = $user->login($_POST['email'], $_POST['password']); //log in the user   
+    echo 'Could not log in.';
 }
-if (!$ok) {
-	echo 'Could not log in.';
-} 
-   
-	
+}
