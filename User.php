@@ -11,21 +11,22 @@ class User {
     }
 
 // Login process
-    public function getDbPassword($email, $password) {
-        $statement = "Select * from users where email = :email";
-        $row = $this->db->query($statement, array(":email" => $email));
-        return $row['password']; 
+    public function authenticate($email, $password) {
+        $statement = "select * from users where email = :email and password = :password";
+        $result = $this->db->query($statement, array(":email" => $email, ":password" => sha1($password)));
+        return $result;
     }
 
 // Getting name
     public function getName($email, $password) {
-        $statement = "Select * from users where email = :email";
+        $statement = "select * from users where email = :email";
         $row = $this->db->query($statement, array(":email" => $email));
-        return $row['firstname']; 
+        return $row['firstname'];
     }
 
 // Getting session 
     public function getSession() {
         return $_SESSION['login'];
     }
+
 }

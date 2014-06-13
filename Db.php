@@ -6,11 +6,14 @@ class Db {
 
     public $connection = null;
     public static $instance = null;
+    public static $dsn;
+    public static $username;
+    public static $password;
 
     private function __construct() {
         try {
             //create a new PDO connection
-            $this->connection = new PDO("mysql:host=" . DB_SERVER . ";dbname=" . DB_DATABASE, DB_USERNAME, DB_PASSWORD);
+            $this->connection = new PDO(self::$dsn, self::$username, self::$password);
         } catch (PDOException $e) {
             //catch and throw exception 
             throw $e;
@@ -19,26 +22,24 @@ class Db {
 
     // returns an instance of Db class
     public static function getInstance() {
-    
+
         if (self::$instance == null) {    //if there is no  instance created
             self::$instance = new self;    //create a new one    
         }
         return self::$instance;    //return the instance
     }
 
-//    public function setCredentials($dbServer, $database, $username, $password) {
-//
-//        $this->dsn = "mysql:host=" . $dbServer . ";dbname=" . $database;
-//      
-//        $this->username = $username;
-//        $this->password = $password;
-//        
-//    }
- 
+    public static function setCredentials($dbServer, $database, $username, $password) {
+
+        self::$dsn = "mysql:host=" . $dbServer . ";dbname=" . $database;
+        self::$username = $username;
+        self::$password = $password;
+    }
+
     // executes a query 
     public function query($statement, $params) {
         $stmt = $this->connection->prepare($statement);    //prepare statement
-        $stmt->execute($params);    //execute query
+        $stmt->execute($params);    //execute query        
         $result = $stmt->fetch();   //fetch result 
         return $result;    //return result
     }
