@@ -1,10 +1,10 @@
 <?php
 require_once 'Autoloader.php';
 
-session_start();
+//session_start();
 
-$user = new User();    //create a new user
-if ($user->getSession() == null) {    //if there is an active session
+$login = new Login();    //create a new user
+if ($login->getSession() == null) {    //if there is an active session
     header('Location: index.php');    //redirect the user
     exit;
 }

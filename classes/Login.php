@@ -4,7 +4,7 @@ class Login {
 
 // Login process
     public function __construct() {
-        session_start();    //create a new session
+        session_start();
     }
 
     public function authenticate($email, $password) {
@@ -15,6 +15,11 @@ class Login {
 //set the session's name variable as the user's first name
             $_SESSION['login'] = true;    //set the login to true
         }
+    }
+
+    // Getting session 
+    public function getSession() {
+        return $_SESSION['login'];
     }
 
 // Logout 

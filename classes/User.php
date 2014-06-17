@@ -22,9 +22,4 @@ class User {
         return $row['firstname'];
     }
 
-// Getting session 
-    public function getSession() {
-        return $_SESSION['login'];
-    }
-
 }

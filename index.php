@@ -12,7 +12,6 @@ if ((!empty($_POST['email'])) && (!empty($_POST['password']))) {
         exit();
     }
     echo 'Could not log in.';
-} else {
+}
 
 require_once 'form.html';
-}
