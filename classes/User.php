@@ -1,7 +1,5 @@
 <?php
 
-require_once 'Db.php';
-
 class User {
 
     public $db = null;

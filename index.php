@@ -1,7 +1,6 @@
 <?php
 
-require_once 'Login.php';
-require_once 'form.html';
+require_once 'Autoloader.php';
 
 if ((!empty($_POST['email'])) && (!empty($_POST['password']))) {
     //if the user filled in the e-mail and password fields
@@ -13,4 +12,7 @@ if ((!empty($_POST['email'])) && (!empty($_POST['password']))) {
         exit();
     }
     echo 'Could not log in.';
+} else {
+
+require_once 'form.html';
 }

@@ -1,19 +1,16 @@
 <?php
 
-require_once('User.php');
-
 class Login {
 
 // Login process
     public function __construct() {
-        
+        session_start();    //create a new session
     }
 
     public function authenticate($email, $password) {
         $user = new User();    //create a new user
         $login = $user->authenticate($email, $password);    //get the password saved in the db
         if (false !== $login) {
-            session_start();    //create a new session
             $_SESSION['name'] = $user->getName($email, $password);
 //set the session's name variable as the user's first name
             $_SESSION['login'] = true;    //set the login to true
