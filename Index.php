@@ -9,7 +9,7 @@ if ((!empty($_POST['email'])) && (!empty($_POST['password']))) {
     $login->authenticate($_POST['email'], $_POST['password']); //create a new login
 
     if (isset($_SESSION['login'])) {    //if the login process was successful
-        header('Location: helloworld.php');    //redirect the user to the secret page
+        header('Location: secretPage.php');    //redirect the user to the secret page
         exit();
     }
     echo 'Could not log in.';
