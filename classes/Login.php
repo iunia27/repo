@@ -18,7 +18,7 @@ class Login {
 //set the session's name variable as the user's first name
             $_SESSION['login'] = true;    //set the login to true
         }
-        return $login!==false;
+        return $login !== false;
     }
 
     // Getting session 
