@@ -26,14 +26,12 @@ class LoginTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testGetSession() {
-        if (empty($_SESSION)) {
-            $this->assertEquals($_SESSION, array());
-        }
-        if (!(isset($_SESSION['login']))){
-            $this->assertArrayNotHasKey('login', $_SESSION);
-        }
+        $_SESSION = array();
+        $this->assertEquals($this->login->getSession(), null);
+        $_SESSION = array('name'=>'iunia');
+        $this->assertEquals($this->login->getSession(), null);
         $_SESSION = array('login' => true);
-        $rez = $this->login->getSession();
+        $this->assertTrue($this->login->getSession());
     }
 
     public function testLogout() {

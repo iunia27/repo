@@ -23,7 +23,13 @@ class Login {
 
     // Getting session 
     public function getSession() {
-        return $_SESSION['login'];
+        if (empty($_SESSION)) {
+            return null;
+        } elseif (!(isset($_SESSION['login']))) {
+            return null;
+        } else {
+            return $_SESSION['login'];
+        }
     }
 
 // Logout 
