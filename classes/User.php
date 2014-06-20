@@ -15,6 +15,13 @@ class User {
         return $result;
     }
 
+// Register process
+    public function register($firstname, $lastname, $email, $password) {
+        $statement = "insert into users(firstname, lastname, email, password) values (:firstname, :lastname, :email, :password)";
+        $result = $this->db->query($statement, array(":firstname" => $firstname, ":lastname" => $lastname,":email" => $email, ":password" => sha1($password)));
+        return $result;
+    }
+
 // Getting name
     public function getName($email, $password) {
         $statement = "select * from users where email = :email";
