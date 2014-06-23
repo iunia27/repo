@@ -1,6 +1,4 @@
 <?php
-
-//$session_id = "abracadabra";
 require_once 'classes/Login.php';
 require_once 'classes/User.php';
 require_once 'classes/Db.php';
@@ -28,7 +26,7 @@ class LoginTest extends PHPUnit_Framework_TestCase {
     public function testGetSession() {
         $_SESSION = array();
         $this->assertEquals($this->login->getSession(), null);
-        $_SESSION = array('name'=>'iunia');
+        $_SESSION = array('name' => 'iunia');
         $this->assertEquals($this->login->getSession(), null);
         $_SESSION = array('login' => true);
         $this->assertTrue($this->login->getSession());
@@ -38,6 +36,7 @@ class LoginTest extends PHPUnit_Framework_TestCase {
         $this->login->logout();
         $this->assertFalse($_SESSION['login']);
     }
+
 }
 
 ?>

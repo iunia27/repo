@@ -10,6 +10,7 @@ class Register {
 //validate names    
     public function validateFields($firstname, $lastname, $email, $password1, $password2) {
         $ok = true;
+        $message = null;
         if (!(ctype_alpha(trim($firstname)))) {
             $ok = false;
         }
@@ -17,16 +18,15 @@ class Register {
             $ok = false;
         }
 
-        if (!(filter_var(trim($email, FILTER_VALIDATE_EMAIL)))) {
-             $ok = false;
+        if (!(filter_var(trim($email), FILTER_VALIDATE_EMAIL))) {
+            $ok = false;
         }
 
         if (filter_var($password1 !== $password2)) {
-             $ok = false;
+            $ok = false;
         }
         return $ok;
     }
-
 
     //user register 
     public function userRegistration($firstname, $lastname, $email, $password) {

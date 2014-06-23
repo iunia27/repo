@@ -9,7 +9,7 @@ if ($_POST['submit']) {
 
     if ($validation == true) {    //if all the fields are filled in correctly
         $registration = $register->userRegistration($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['password']); //register user
-        if ($registration !== false){
+        if ($registration != false){
         header('Location: index.php');    //redirect the user to the index page
         exit();
         }
