@@ -8,28 +8,25 @@ class Register {
     }
 
 //validate names    
-    public function validateName($name) {
-        if (ctype_alpha(trim($name))) {
-            return true;
+    public function validateFields($firstname, $lastname, $email, $password1, $password2) {
+        $ok = true;
+        if (!(ctype_alpha(trim($firstname)))) {
+            $ok = false;
         }
-        return false;
+        if (!(ctype_alpha(trim($lastname)))) {
+            $ok = false;
+        }
+
+        if (!(filter_var(trim($email, FILTER_VALIDATE_EMAIL)))) {
+             $ok = false;
+        }
+
+        if (filter_var($password1 !== $password2)) {
+             $ok = false;
+        }
+        return $ok;
     }
 
-//validate e-mail    
-    public function validateEmail($email) {
-        if (filter_var(trim($email, FILTER_VALIDATE_EMAIL))) {
-            return true;
-        }
-        return false;
-    }
-
-//validate passwords   
-    public function validatePasswords($password1, $password2) {
-        if (filter_var($password1 == $password2)) {
-            return true;
-        }
-        return false;
-    }
 
     //user register 
     public function userRegistration($firstname, $lastname, $email, $password) {
