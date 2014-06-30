@@ -6,7 +6,6 @@ require_once 'classes/Db.php';
 class LoginTest extends PHPUnit_Framework_TestCase {
 
     protected $login;
-    public $session_id;
 
     protected function setUp() {
 

@@ -1,15 +1,11 @@
 <?php
-
-//$session_id = "abracadabra";
 require_once 'classes/Register.php';
-//require_once 'classes/Login.php';
 require_once 'classes/User.php';
 require_once 'classes/Db.php';
 
-class LoginTest extends PHPUnit_Framework_TestCase {
+class RegisterTest extends PHPUnit_Framework_TestCase {
 
     protected $register;
-    public $session_id;
 
     protected function setUp() {
 
@@ -34,8 +30,8 @@ class LoginTest extends PHPUnit_Framework_TestCase {
     }
 
     public function testUserRegistration() {
-        $this->assertFalse($this->register->userRegistration("_!?", 123, 'aaaa2', null));
-        $this->assertEquals($this->register->userRegistration('test', 'user', 'test.user@softvision.ro', 12345), null);
+        $this->assertFalse($this->register->userRegistration(null, null, null, null));
+        $this->assertTrue($this->register->userRegistration('test', 'user', 'test.user@softvision.ro', 12345));
     }
 
 }

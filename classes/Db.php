@@ -38,10 +38,13 @@ class Db {
 
     // executes a query 
     public function query($statement, $params) {
+        
         $stmt = $this->connection->prepare($statement);    //prepare statement
         $stmt->execute($params);    //execute query        
         $result = $stmt->fetch();   //fetch result 
-        return $result;    //return result
+        $rowCount = $stmt->rowCount();
+        return strstr($statement, 'insert')?$rowCount: $result;   //return result
+      
     }
 
     //closes database connection
