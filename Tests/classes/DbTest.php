@@ -1,5 +1,6 @@
 <?php
 
+require_once 'classes/User.php';
 require_once 'classes/Db.php';
 
 class DbTest extends PHPUnit_Framework_TestCase {
@@ -7,29 +8,33 @@ class DbTest extends PHPUnit_Framework_TestCase {
     protected $db;
 
     protected function setUp() {
+        //create a mock for the db, disable the original constructor, stub the
+        //getInstance and setCredentials functions
+        $this->db = $this->getMockBuilder('Db')
+                ->setMethods(array('getInstance', 'setCredentials'))
+                ->setConstructorArgs(array('getInstance', 'setCredentials'))
+                ->disableOriginalConstructor()
+                ->getMock();
 
-        $this->db = new Db();
         $class = get_class($this->db);
-        $this->assertEquals($class, "Db");
+        $this->assertStringStartsWith("Mock_Db_", $class);
+        //create a new db connection
+        $this->db->connection = new PDO("mysql:host=localhost;dbname=test", 'root', 'root');
     }
 
-//    public function testValidateFields() {
-//        $resultF1 = $this->register->validateFields(null, null, null, null, null);
-//        $this->assertFalse($resultF1);
-//        $resultF2 = $this->register->validateFields(' ', ' ', ' ', ' ', ' ');
-//        $this->assertFalse($resultF2);
-//        $resultF3 = $this->register->validateFields('123', '123', 'aaa@aaa.com', '12345', '12345');
-//        $this->assertFalse($resultF3);
-//        $resultF4 = $this->register->validateFields('aaaaa', 'aaaa', 'aaa234sad34', '12345', '12345');
-//        $this->assertFalse($resultF4);
-//        $resultF5 = $this->register->validateFields('aaaaa', 'aaaa', 'aaa@aaa.com', '12345', '123456');
-//        $this->assertFalse($resultF5);
-//        $resultT = $this->register->validateFields('iunia', 'bujita', 'iunia.bujita@softvision.ro', '12345', '12345');
-//        $this->assertTrue($resultT);
-//    }
-//
-//    public function testUserRegistration() {
-//        $this->assertFalse($this->register->userRegistration("_!?", 123, 'aaaa2', null));
-//        $this->assertEquals($this->register->userRegistration('test', 'user', 'test.user@softvision.ro', 12345), null);
-//    }
+    public function testQuery() {
+        //test the query function for a correct query statement
+        $statementT = "select * from users";
+        $this->assertNotEmpty($this->db->query($statementT, null));
+        //test the query function for an incorrect query statement
+        $statementF = "Incorrect Query";
+        $this->assertFalse($this->db->query($statementF, null));
+    }
+
+    public function test__destruct() {
+        //test the destruct function
+        $this->db->__destruct();
+        $this->assertNull($this->db->connection);
+    }
+
 }
