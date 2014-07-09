@@ -2,13 +2,13 @@
 
 function __autoload($class_name) {
     //class directories
-    $directorys = array(
+    $directories = array(
         'classes/',
     );
 
     //for each directory
-    foreach ($directorys as $directory) {
-        //see if the file exsists
+    foreach ($directories as $directory) {
+        //see if the file exists
         if (file_exists($directory . $class_name . '.php')) {
             require_once($directory . $class_name . '.php');
             //only require the class once
