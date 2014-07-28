@@ -32,7 +32,6 @@ class Register {
     public function userRegistration($firstname, $lastname, $email, $password) {
         $user = new User();    //create a new user
         $register = $user->register($firstname, $lastname, $email, $password);    //register the user
-        echo "register is  equal to: ". $register;
         return (boolean)$register;
     }
 

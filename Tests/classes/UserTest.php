@@ -29,9 +29,9 @@ class UserTest extends PHPUnit_Framework_TestCase {
 
     public function testRegister() {
         //try to register with null values
-        $this->assertFalse($this->user->register(null, null, null, null));
+        $this->assertEquals($this->user->register(null, null, null, null), 0);
         //try to register with correct values
-        $this->assertTrue($this->user->register('test', 'user', 'test.user@softvision.ro', 12345));
+        $this->assertEquals($this->user->register('test', 'user', 'test.user@softvision.ro', 12345), 1);
     }
 
     public function testGetName() {
